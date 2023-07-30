@@ -1,0 +1,53 @@
+#include "main.h"
+#include "common.h"
+
+
+void main()
+{
+	int i,j,k,page=2;
+	int gdriver ,gmode;
+	Node* NodeC = CreateNode();
+	Node*ROOTC= CreateNode();
+	strcpy(NodeC->file.name,"C:");
+	Fileini("C:", NodeC);
+	NodeC->flag=2;
+	ROOTC->flag = 3;
+	ROOTC->child=NodeC;
+	NodeC->parent = ROOTC;
+	ROOTC->parent = NULL;
+	//int driver=VGA;
+   // int mode=VGAHI;
+	gdriver=DETECT;
+	initgraph(&gdriver,&gmode,"../../borlandc/bgi");
+	
+	setbkcolor(BLACK);
+	mouseinit();
+	delay(10);
+	while(1)
+	{
+		newmouse(&MouseX,&MouseY,&press);
+		if(page<0&&page>10)
+		{
+			page=1;
+		}
+		switch(page)
+			{
+				case 0://退出程序
+					Zquit();
+					return;
+				
+				case 1://登录界面
+					page = 2;
+					break;
+					
+				case 2://主界面
+					cleardevice();
+					page=menu(ROOTC);
+					break;
+				default:
+					printf("ERROR!ERROR!");
+			}
+	}
+}
+
+
